@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>Filter smartphones</h1>
+    <form method="GET">
+      <div class="form-group">
+        <label for="max_price">Maximum price:</label>
+        <input type="number" class="form-control" id="max_price" name="max_price">
+      </div>
+      <div class="form-group">
+        <label for="name">Brand:</label>
+        <select class="form-control" id="name" name="name">
+          <option value="">All</option>
+          {% for brand in smartphone_brands %}
+            <option value="{{ brand }}">{{ brand }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+
+    <h2>Results</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Image</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for smartphone in smartphones %}
+          <tr>
+            <td>{{ smartphone.name }}</td>
+            <td>{{ smartphone.price }} TND</td>
+            <td><img src="{{ smartphone.image }}" alt="{{ smartphone.name }}" height="100"></td>
+            <td><a href="{{ smartphone.link }}" target="_blank">View on Jumia</a></td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="4">No results found.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
